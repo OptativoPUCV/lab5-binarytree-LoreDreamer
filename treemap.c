@@ -155,11 +155,12 @@ void removeNode(TreeMap *tree, TreeNode *node) {
             if (current->left == current) {
 
                 parent->left = child;
-
+                child->parent = parent;
                 
             } else {
 
                 parent->right = child;
+                child->parent = parent;
                 
             }
         } else {
