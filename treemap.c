@@ -158,20 +158,12 @@ Pair * searchTreeMap(TreeMap * tree, void* key) {
 }
 
 
-Pair *upperBound(TreeMap *tree, void *key) {
-    TreeNode *current = tree->root;
-    TreeNode *upper_bound_node = NULL;
+Pair * upperBound(TreeMap * tree, void* key) {
 
-    while (current != NULL && current->pair->key != key) {
-        if (!tree->lower_than(current->pair->key, key)) {
-            upper_bound_node = current;
-            current = current->left;
-        } else {
-            current = current->right;
-        }
-    }
+    return NULL;
 
-    return upper_bound_node->pair;
+        
+        
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
