@@ -113,36 +113,38 @@ void removeNode(TreeMap * tree, TreeNode* node) {
     TreeNode *temp = tree->root;
     TreeNode *parent = NULL;
 
-    // Find the node to be removed and its parent
-    while (temp != NULL && temp != node) {
-        parent = temp;
-        if (tree->lower_than(node->pair->key, temp->pair->key)) {
-            temp = temp->left;
-        } else {
-            temp = temp->right;
-        }
-    }
+    do {
 
-    // If the node was not found, return
+        parent = temp;
+
+        if (tree->lower_than(node->pair->key, temp->pair->key)) 
+            temp = temp->left;
+        else
+            temp = temp->right;
+
+    } while (temp != NULL && temp != node);
+
     if (temp == NULL)
         return;
 
-    // If the node to be removed has no children
     if (temp->left == NULL && temp->right == NULL) {
-        // Check if the node is the root
-        if (parent != NULL) {
-            // If not root, update the parent's pointer
-            if (parent->left == node)
+
+        if (parent != tree->root) {
+
+            if (parent->left == temp) {
                 parent->left = NULL;
-            else
+            } else {
                 parent->right = NULL;
+            }
+            
         } else {
-            // If root, just set the root to NULL
+
             tree->root = NULL;
+            
         }
-        // Free the memory allocated for the node
-        free(node);
     }
+        
+    
 
     /*
     else if (temp->left == NULL || temp->right == NULL) { // Caso 1 Hijo
