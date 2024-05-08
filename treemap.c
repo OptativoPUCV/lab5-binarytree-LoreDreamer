@@ -152,12 +152,26 @@ void eraseTreeMap(TreeMap * tree, void* key){
 
 
 Pair * searchTreeMap(TreeMap * tree, void* key) {
+
+    
     return NULL;
 }
 
 
-Pair * upperBound(TreeMap * tree, void* key) {
-    return NULL;
+Pair *upperBound(TreeMap *tree, void *key) {
+    TreeNode *current = tree->root;
+    TreeNode *upper_bound_node = NULL;
+
+    while (current != NULL && current->pair->key != key) {
+        if (!tree->lower_than(current->pair->key, key)) {
+            upper_bound_node = current;
+            current = current->left;
+        } else {
+            current = current->right;
+        }
+    }
+
+    return upper_bound_node->pair;
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
