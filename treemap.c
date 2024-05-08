@@ -259,7 +259,7 @@ Pair * nextTreeMap(TreeMap * tree) {
 
     TreeNode *parent = current->parent;
 
-    while (parent != NULL) {
+    while (parent != NULL && current == parent->right) {
 
         current = parent;
         parent = parent->parent;
