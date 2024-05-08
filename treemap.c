@@ -109,72 +109,43 @@ TreeNode * minimum(TreeNode * x){
 
 
 void removeNode(TreeMap * tree, TreeNode* node) {
+    if (node == NULL) return;
 
-    TreeNode *temp = tree->root;
-    TreeNode *parent = NULL;
-
-    while (temp != NULL && temp != node) {
-
-        parent = temp;
-
-        if (tree->lower_than(node->pair->key, temp->pair->key)) {
-            temp = temp->left;
-        } else {
-            temp = temp->right;
-        }
-        
-    }
-
-    if (temp == NULL) {
-        return;
-    }
-
-    if (temp->left == NULL || temp->right == NULL) {
-        TreeNode *child = temp->left != NULL ? temp->left : temp->right;
-        if (child != NULL) {
-            child->parent = parent;
-            
-        } else {
-            parent->left = NULL;
-            parent->right = NULL;
-        }
-        if (parent == NULL) {
-            tree->root = child;
-            
-        }
-    }
-
-    else if (temp->left == NULL || temp->right == NULL) { // Caso 1 Hijo
-
-        TreeNode *child;
-
-        if (temp->left != NULL)
-            child = temp->left;
-        else
-            child = temp->right;
-        
-        if (temp != tree->root) {
-
-            if (parent->left == temp)
-                parent->left = child;
+    if (node->left == NULL && node->right == NULL) { // Case: Node has no children
+        if (node->parent != NULL) {
+            if (node == node->parent->left)
+                node->parent->left = NULL;
             else
-                parent->right = child;
+                node->parent->right = NULL;
+        } else {
+            tree->root = NULL;
+        }
+        free(node);
+    } else if (node->left == NULL || node->right == NULL) { // Case: Node has one child
+        TreeNode *child = (node->left != NULL) ? node->left : node->right;
+        if (node->parent != NULL) {
+            if (node == node->parent->left)
+                node->parent->left = child;
+            else
+                node->parent->right = child;
         } else {
             tree->root = child;
         }
-    }
+        child->parent = node->parent;
+        free(node);
+    } else { // Case: Node has two children
+        TreeNode *successor = minimum(node->right); // Find the minimum node in the right subtree
 
-    else { // Caso 2 Hijos
+        // Swap the key and value with the successor node
+        void* temp_key = node->pair->key;
+        void* temp_value = node->pair->value;
+        node->pair->key = successor->pair->key;
+        node->pair->value = successor->pair->value;
+        successor->pair->key = temp_key;
+        successor->pair->value = temp_value;
 
-        TreeNode *heir = minimum(temp->right);
-
-        void* hKey = heir->pair->key;
-        void* hData = heir->pair->value;
-
-        removeNode(tree, heir);
-        temp->pair->key = hKey;
-        temp->pair->value = hData;
-    
+        // Remove the successor node (recursive call)
+        removeNode(tree, successor);
     }
 }
 
