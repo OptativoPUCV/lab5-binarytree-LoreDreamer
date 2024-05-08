@@ -128,7 +128,57 @@ void removeNode(TreeMap * tree, TreeNode* node) {
     if (temp == NULL) {
         return;
     }
+
+    if (temp->left == NULL && temp->right == NULL) { // Caso Hoja
+
+        if (temp != tree->root) {
+
+            if (parent->left == node)
+                
+                parent->left = NULL;
+                
+            else
+                
+                parent->right = NULL;
+        
+        } else {
+            tree->root = NULL;
+        }
+        free(temp);
+    }
+
+    else if (temp->left == NULL || temp->right == NULL) { // Caso 1 Hijo
+
+        TreeNode *child;
+
+        if (temp->left != NULL)
+            child = temp->left;
+        else
+            child = temp->right;
+        
+        if (temp != tree->root) {
+
+            if (parent->left == temp)
+                parent->left = child;
+            else
+                parent->right = child;
+        } else {
+            tree->root = child;
+        }
+    }
+
+    else { // Caso 2 Hijos
+
+        TreeNode *heir = minimum(temp->right);
+
+        void* hKey = heir->pair->key;
+        void* hData = heir->pair->value;
+
+        removeNode(tree, heir);
+        temp->pair->key = hKey;
+        temp->pair->value = hData;
     
+    }
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
