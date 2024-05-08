@@ -188,10 +188,8 @@ void eraseTreeMap(TreeMap * tree, void* key){
     
     TreeNode* node = tree->current;
     removeNode(tree, node);
+    
 }
-
-
-
 
 Pair *searchTreeMap(TreeMap *tree, void *key) {
 
@@ -200,8 +198,10 @@ Pair *searchTreeMap(TreeMap *tree, void *key) {
     while (current != NULL) {
 
         if (is_equal(tree, current->pair->key, key)) {
+            
             tree->current = current;
             return current->pair;
+            
         } else if (tree->lower_than(key, current->pair->key) == 1) {
             current = current->left;
         } else {
@@ -259,7 +259,7 @@ Pair * nextTreeMap(TreeMap * tree) {
 
     TreeNode *parent = current->parent;
 
-    while (parent != NULL && current == parent->right) {
+    while (parent != NULL) {
 
         current = parent;
         parent = parent->parent;
