@@ -43,3 +43,14 @@ Wed 08 May 2024 01:08:00 AM UTC:
  tests:  6|6
 total_score: 15/70
 f18e181
+Wed 08 May 2024 01:08:45 AM UTC: 
+ treemap.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+In file included from test.c:4:
+treemap.c: In function ‘insertTreeMap’:
+treemap.c:91:19: error: ‘aux’ undeclared (first use in this function)
+   91 |     new->parent = aux;
+      |                   ^~~
+treemap.c:91:19: note: each undeclared identifier is reported only once for each function it appears in
+Compilation failed
+a7cd2fe
