@@ -166,7 +166,19 @@ void removeNode(TreeMap *tree, TreeNode *node) {
         } else {
             tree->root = child;
         }
-    }  
+    }
+
+    else {
+
+        TreeNode *heir = minimum(current->right);
+        void *hKey = heir->pair->key;
+        void *hValue = heir->pair->value;
+
+        removeNode(tree, heir);
+        current->pair->key = hKey;
+        current->pair->value = hValue;
+        
+    }
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
