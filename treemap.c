@@ -113,58 +113,29 @@ void removeNode(TreeMap * tree, TreeNode* node) {
     TreeNode* temp = tree->root;
     TreeNode* parent = NULL;
 
-    // Primero buscamos el nodo a eliminar y su padre
-    while(temp != NULL && temp->pair->key != node->pair->key) {
-        parent = temp;
-        if(node->pair->key < temp->pair->key)
+    while (temp->pair->key != NULL && temp->pair->key != node->pair->key) {
+
+        if (tree->lower_than(node->pair->key, temp->pair->key)) {
+            parent = temp;
             temp = temp->left;
-        else
+        } else {
+            parent = temp;
             temp = temp->right;
+        }    
     }
 
-    if(temp == NULL)  // Si el nodo no se encuentra en el árbol
-        return;
+    if (temp->left == NULL && temp->right == NULL) {
 
-    // Caso 1: el nodo es una hoja
-    if(temp->left == NULL && temp->right == NULL) {
-        if(temp != tree->root) {
-            if(parent->left == temp)
+        if (parent->pair->key != tree->root->pair->key) {
+
+            if (parent->left == temp) {
                 parent->left = NULL;
-            else
+            } else {
                 parent->right = NULL;
+            }
         } else {
             tree->root = NULL;
         }
-
-        free(temp);
-    }
-    // Caso 2: el nodo tiene un solo hijo
-    else if(temp->left == NULL || temp->right == NULL) {
-        TreeNode* child;
-        if(temp->left != NULL)
-            child = temp->left;
-        else
-            child = temp->right;
-
-        if(temp != tree->root) {
-            if(parent->left == temp)
-                parent->left = child;
-            else
-                parent->right = child;
-        } else {
-            tree->root = child;
-        }
-
-        free(temp);
-    }
-    // Caso 3: el nodo tiene dos hijos
-    else {
-        TreeNode* successor = minimum(temp->right);
-        void* succKey = successor->pair->key;
-        void* succData = successor->pair->value;
-        removeNode(tree, succKey);  // Eliminamos el sucesor
-        temp->pair->key = succKey;
-        temp->pair->value = succData;
     }
 }
 
