@@ -152,15 +152,19 @@ Pair *upperBound(TreeMap *tree, void *key) {
     TreeNode *upper_bound_node = NULL;
 
     while (current != NULL) {
-        if (!tree->lower_than(key, current->pair->key)) {
+        if (tree->lower_than(key, current->pair->key)) {
             upper_bound_node = current;
-            current = current->right;
-        } else {
             current = current->left;
+        } else {
+            current = current->right;
         }
     }
 
-    return upper_bound_node->pair;
+    if (upper_bound_node != NULL) {
+        return upper_bound_node->pair;
+    }
+
+    return NULL;
 }
 
 Pair * firstTreeMap(TreeMap * tree) {
