@@ -128,7 +128,7 @@ void removeNode(TreeMap *tree, TreeNode *node) {
 
     if (current == NULL) return;
 
-    // Case 1: No child
+    
     if (current->left == NULL && current->right == NULL) {
         if (parent == NULL) {
             tree->root = NULL;
@@ -140,25 +140,7 @@ void removeNode(TreeMap *tree, TreeNode *node) {
         free(current->pair);
         free(current);
     }
-    // Case 2: One child
-    else if (current->left == NULL || current->right == NULL) {
-        TreeNode *child = current->left ? current->left : current->right;
-        if (parent == NULL) {
-            tree->root = child;
-        } else if (parent->left == current) {
-            parent->left = child;
-        } else {
-            parent->right = child;
-        }
-        free(current->pair);
-        free(current);
-    }
-    // Case 3: Two children
-    else {
-        TreeNode *successor = minimum(current->right);
-        current->pair = successor->pair;
-        removeNode(tree, successor);
-    }
+    
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
