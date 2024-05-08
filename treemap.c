@@ -110,7 +110,7 @@ TreeNode * minimum(TreeNode * x){
 
 void removeNode(TreeMap * tree, TreeNode* node) {
 
-    return NULL;
+    return;
 }
 
 void eraseTreeMap(TreeMap * tree, void* key){
