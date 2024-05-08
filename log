@@ -296,3 +296,20 @@ Wed 08 May 2024 02:33:26 AM UTC:
  tests:  27|1
 total_score: 60/70
 f3a2bd9
+Wed 08 May 2024 02:34:18 AM UTC: 
+ treemap.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+In file included from test.c:4:
+treemap.c: In function ‘removeNode’:
+treemap.c:136:44: error: expected statement before ‘)’ token
+  136 |         } else if (parent->left == current)) {
+      |                                            ^
+treemap.c:138:11: error: expected ‘}’ before ‘else’
+  138 |         } else {
+      |           ^~~~
+treemap.c: At top level:
+treemap.c:144:1: error: expected identifier or ‘(’ before ‘}’ token
+  144 | }
+      | ^
+Compilation failed
+9722ba2
