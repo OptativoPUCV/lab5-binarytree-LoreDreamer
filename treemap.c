@@ -39,10 +39,11 @@ TreeNode * createTreeNode(void* key, void * value) {
 TreeMap * createTreeMap(int (*lower_than) (void* key1, void* key2)) {
 
     TreeMap * new = (TreeMap *) malloc(sizeof(TreeMap));
+    
     new->lower_than = lower_than;
     new->root = NULL;
-
     new->current = NULL;
+    
     return new;
 }
 
@@ -103,7 +104,6 @@ TreeNode * minimum(TreeNode * x){
         temp = temp->left;
         
     }
-
     return temp;
 }
 
@@ -155,7 +155,7 @@ void removeNode(TreeMap *tree, TreeNode *node) {
             if (current->left == current) {
 
                 parent->left = child;
-                child->parent = parent;
+
                 
             } else {
 
